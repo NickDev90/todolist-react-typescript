@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
+import { TodoFormProps } from '../interfaces';
 
-interface TodoFormProps {
-    onAdd(title: string): void
-}
 
 const ToDoForm: React.FC<TodoFormProps> = (props) => {
     const [title, setTitle] = useState<string>('');

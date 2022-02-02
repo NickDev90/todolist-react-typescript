@@ -1,15 +1,10 @@
 import React from 'react';
-import { ITodo } from '../interfaces';
+import { TodoListProps } from '../interfaces';
 
-type TodoListProps = {
-    todos: ITodo[]
-    onTogggle(id: number): void
-    onRemove: (id: number) => void
-}
 
 const TodoList: React.FC<TodoListProps> = ({todos, onTogggle, onRemove}) => {
     if (todos.length === 0) return (
-        <p className='center'>There is no tasks now</p>
+        <p className='center flow-text'>There are no tasks yet</p>
     )
 
     return (
