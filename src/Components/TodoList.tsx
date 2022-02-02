@@ -3,11 +3,11 @@ import { ITodo } from '../interfaces';
 
 type TodoListProps = {
     todos: ITodo[]
-    onToggle(id: number): void
+    onTogggle(id: number): void
     onRemove: (id: number) => void
 }
 
-const TodoList: React.FC<TodoListProps> = ({todos, onToggle, onRemove}) => {
+const TodoList: React.FC<TodoListProps> = ({todos, onTogggle, onRemove}) => {
     if (todos.length === 0) return (
         <p className='center'>There is no tasks now</p>
     )
@@ -20,6 +20,8 @@ const TodoList: React.FC<TodoListProps> = ({todos, onToggle, onRemove}) => {
 
                 if (todo.completed) {
                     classes.push('completed')
+                    console.log('completed');
+                    
                 }
 
                 return (
@@ -27,11 +29,11 @@ const TodoList: React.FC<TodoListProps> = ({todos, onToggle, onRemove}) => {
                         <label>
                             <input type="checkbox" 
                                 checked={todo.completed} 
-                                onChange={() => onToggle(todo.id)} 
+                                onChange={onTogggle.bind(null, todo.id)} 
                             />
                             <span>{todo.title}</span>
                             <i className='material-icons red-text'
-                                onClick={(e) => {
+                                onClick={(e: React.MouseEvent) => {
                                     e.preventDefault();
                                     onRemove(todo.id);
                                 }}

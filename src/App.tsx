@@ -1,6 +1,4 @@
-import { equal } from 'assert';
-import React, { useState } from 'react';
-import { boolean } from 'yargs';
+import React, { useEffect, useState } from 'react';
 import Navbar from './Components/Navbar';
 import ToDoForm from './Components/ToDoForm';
 import TodoList from './Components/TodoList';
@@ -9,6 +7,15 @@ import { ITodo } from './interfaces';
 const App: React.FC = () => {
 
   const [todos, setTodos] = useState<ITodo[]>([]);
+
+  useEffect( ()=> {
+    const saved = JSON.parse(localStorage.getItem('todos') || '[]') as ITodo[];
+    setTodos(saved) 
+  }, [])
+
+  useEffect( ()=> {
+      localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
   const addHandler = (title: string) => {
     const newTodo: ITodo = {
@@ -20,17 +27,16 @@ const App: React.FC = () => {
   }
 
   const toggleHandler = (id: number) => {
-    setTodos( prev => prev.map( todo => {
-        
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-
+    setTodos(prev =>
+      prev.map(todo => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          completed: !todo.completed
         }
-        console.log(todo);
-        
-        return todo;
-      })
-    )
+      }         
+      return todo
+    }))
   }
 
   const removeHandler = (id: number) => {
@@ -45,7 +51,7 @@ const App: React.FC = () => {
       <Navbar/>
       <div className='container'>
         <ToDoForm onAdd={addHandler}/>
-        <TodoList todos={todos} onToggle={toggleHandler} onRemove={removeHandler}/> 
+        <TodoList todos={todos} onTogggle={toggleHandler} onRemove={removeHandler}/> 
       </div>
     </>
   )
