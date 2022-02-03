@@ -11,12 +11,10 @@ const TodoList: React.FC<TodoListProps> = ({todos, onTogggle, onRemove}) => {
         <ul>
             {todos.map(todo => {
                 
-                const classes = ['todo']
+                const classes = ['todo'];
 
                 if (todo.completed) {
-                    classes.push('completed')
-                    console.log('completed');
-                    
+                    classes.push('completed');
                 }
 
                 return (
