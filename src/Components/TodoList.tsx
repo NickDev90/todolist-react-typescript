@@ -2,7 +2,7 @@ import React from 'react';
 import { TodoListProps } from '../interfaces';
 
 
-const TodoList: React.FC<TodoListProps> = ({todos, onTogggle, onRemove}) => {
+const TodoList: React.FC<TodoListProps> = ({todos, onTogggle, onRemove, removeAllCompleted}) => {
     if (todos.length === 0) return (
         <p className='center flow-text'>There are no tasks yet</p>
     )
@@ -35,6 +35,12 @@ const TodoList: React.FC<TodoListProps> = ({todos, onTogggle, onRemove}) => {
                     </li>
                 )
             })}
+
+            {/* {todos.some(todo => todo.completed) && <button onClick={removeAllCompleted}>
+                Delete all completed
+            </button>
+                
+            } */}
         </ul>
     );
 };

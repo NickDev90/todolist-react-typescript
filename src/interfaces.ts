@@ -12,4 +12,5 @@ export type TodoListProps = {
     todos: ITodo[]
     onTogggle(id: number): void
     onRemove: (id: number) => void
+    removeAllCompleted: () => void
 }

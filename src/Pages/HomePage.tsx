@@ -39,16 +39,27 @@ const HomePage: React.FC = () => {
     }
   
     const removeHandler = (id: number) => {
-      const shouldRemove = window.confirm('Do you really want to remove this task?')
-      if (shouldRemove) {
+
+      const removingTodo = todos.find(todo => todo.id === id)
+
+      if (removingTodo?.completed) {
           setTodos( prev => prev.filter( todo => todo.id !== id))
+      } else {
+        const shouldRemove = window.confirm('This task is UNFINISHED. Do you really want to remove it?')
+        if (shouldRemove) {
+          setTodos( prev => prev.filter( todo => todo.id !== id))
+        }
       }
+    }
+
+    const removeAllCompleted = () => {
+      setTodos( prev => prev.filter( todo => !todo.completed))
     }
 
     return (
         <div className='container'>
         <ToDoForm onAdd={addHandler}/>
-        <TodoList todos={todos} onTogggle={toggleHandler} onRemove={removeHandler}/> 
+        <TodoList todos={todos} onTogggle={toggleHandler} onRemove={removeHandler} removeAllCompleted={removeAllCompleted}/> 
       </div>
     );
 };
